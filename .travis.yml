@@ -1,0 +1,21 @@
+# vim ft=yaml
+# travis-ci.org definition for simple-cython-example build
+#
+
+notifications:
+  email: false
+language: c
+env:
+    - PYTHON=python PYSUF='' PYVER=2.7
+    - PYTHON=python3 PYSUF='3' PYVER=3.2
+install:
+    - sudo apt-get update
+    - sudo apt-get install $PYTHON-dev
+    - sudo apt-get install $PYTHON-setuptools
+    - sudo apt-get install $PYTHON-numpy
+    - sudo easy_install$PYSUF pip
+    - sudo pip-$PYVER install cython
+    - sudo $PYTHON setup.py develop
+script:
+    - "cd cython_boilerplate"
+    - "$PYTHON test/test_cython_examples.py"
